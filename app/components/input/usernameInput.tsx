@@ -1,9 +1,9 @@
 import { FC } from 'react';
-import { UserInput } from '@/app/types/input';
+import { UserInput } from '@/types/input';
 
 const UsernameInput: FC<UserInput> = ({ register, errors, options }) => {
   return (
-    <>
+    <div>
       <label>Email</label>
       <input
         style={options.readOnly ? { background: 'whitesmoke' } : {}}
@@ -26,7 +26,7 @@ const UsernameInput: FC<UserInput> = ({ register, errors, options }) => {
         })}
       />
       {errors && <p>{errors.message}</p>}
-    </>
+    </div>
   );
 };
 
