@@ -1,11 +1,8 @@
-import { useCallback, useEffect } from 'react';
-import { ISignUpUser } from '@/app/types/user';
+import { useCallback } from 'react';
+import { ISignInUser, ISignUpUser } from '@/app/types/user';
 import Api from '@/app/utils/axiosConfig';
 
 const useUser = () => {
-
-  console.log('debug');
-
   const signUp = useCallback(async (params: ISignUpUser) => {
     console.log('debug2');
     try {
@@ -22,8 +19,11 @@ const useUser = () => {
     }
   }, []);
 
+  const signIn = useCallback(async (params: ISignInUser) => {}, []);
+
   return {
     signUp,
+    signIn,
   };
 };
 
