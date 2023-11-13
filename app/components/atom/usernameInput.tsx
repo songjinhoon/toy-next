@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import { UserInput } from '@/types/input';
+import { UserInput } from '@/app/types/input';
 
 const UsernameInput: FC<UserInput> = ({ register, errors, options }) => {
   return (

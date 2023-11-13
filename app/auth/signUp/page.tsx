@@ -2,14 +2,14 @@
 
 import React, { useCallback } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
-import { ISignUpUser } from '@/types/user';
-import UsernameInput from '@/app/components/input/usernameInput';
-import AddressInput from '@/app/components/input/addressInput';
-import PasswordInput from '@/app/components/input/passwordInput';
-import NicknameInput from '@/app/components/input/nicknameInput';
-import TellNumInput from '@/app/components/input/tellNumInput';
+import { ISignUpUser } from '@/app/types/user';
+import UsernameInput from '@/app/components/atom/usernameInput';
+import AddressInput from '@/app/components/atom/addressInput';
+import PasswordInput from '@/app/components/atom/passwordInput';
+import NicknameInput from '@/app/components/atom/nicknameInput';
+import TellNumInput from '@/app/components/atom/tellNumInput';
 import Link from 'next/link';
-import useUser from '@/hooks/useUser';
+import useUser from '@/app/hooks/useUser';
 
 const SignUp = () => {
   const { signUp } = useUser();

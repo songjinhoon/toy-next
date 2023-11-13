@@ -1,4 +1,4 @@
-import Api from '@/utils/axiosConfig';
+import Api from '@/app/utils/axiosConfig';
 
 const fetcher = (url: string) =>
   Api.get(url, {

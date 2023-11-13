@@ -1,6 +1,6 @@
 import { useCallback, useEffect } from 'react';
-import { ISignUpUser } from '@/types/user';
-import Api from '@/utils/axiosConfig';
+import { ISignUpUser } from '@/app/types/user';
+import Api from '@/app/utils/axiosConfig';
 
 const useUser = () => {
 

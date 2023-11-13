@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { UserInput } from '@/types/input';
+import { UserInput } from '@/app/types/input';
 
 const NicknameInput: FC<UserInput> = ({ register, errors }) => {
   return (
