@@ -1,5 +1,11 @@
+'use client';
+
+import { useRouter } from 'next/navigation';
+
 const Home = () => {
-  return <div>Home Page</div>;
+  const router = useRouter();
+  router.push('/auth/signIn')
+  return <div>Home Pag11e</div>;
 };
 
 export default Home;
