@@ -1,9 +1,10 @@
 export interface ISignUpUser {
   username: string;
+  password: string;
   nickname: string;
+  email: string;
   tellNum: string;
   address: string;
-  password: string;
 }
 
 export interface ISignInUser {

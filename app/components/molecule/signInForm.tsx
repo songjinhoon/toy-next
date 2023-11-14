@@ -7,8 +7,10 @@ import React, { useCallback } from 'react';
 import useUser from '@/app/hooks/useUser';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { ISignUpUser } from '@/app/types/user';
+import { useRouter } from 'next/navigation';
 
 const SignInForm = () => {
+  const router = useRouter();
   const { signIn } = useUser();
   const {
     register,
@@ -20,6 +22,7 @@ const SignInForm = () => {
 
   const _onSubmit: SubmitHandler<ISignUpUser> = useCallback(async (data) => {
     await signIn(data);
+    router.push('/dashboard');
   }, []);
 
   return (
