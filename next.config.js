@@ -1,4 +1,4 @@
-/** @type {import('next').NextConfig} */
+/** @type {import("next").NextConfig} */
 const nextConfig = {
   reactStrictMode: false,
   async rewrites() {
@@ -13,3 +13,7 @@ const nextConfig = {
 };
 
 module.exports = nextConfig;
+
+/*
+* 1. SSR은 프록시가 안먹나?
+* */
