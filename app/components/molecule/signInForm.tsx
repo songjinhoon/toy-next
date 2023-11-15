@@ -2,7 +2,7 @@
 
 import UsernameInput from '@/app/components/atom/usernameInput';
 import PasswordInput from '@/app/components/atom/passwordInput';
-import CommonButton from '@/app/components/atom/commonButton';
+import CommonButton from '@/app/components/atom/button/commonButton';
 import React, { useCallback } from 'react';
 import useUser from '@/app/hooks/useUser';
 import { SubmitHandler, useForm } from 'react-hook-form';
@@ -26,7 +26,7 @@ const SignInForm = () => {
   }, []);
 
   return (
-    <form className={'bg-slate-200'} onSubmit={handleSubmit(_onSubmit)}>
+    <form onSubmit={handleSubmit(_onSubmit)}>
       <UsernameInput
         register={register}
         errors={errors.username}
@@ -37,7 +37,7 @@ const SignInForm = () => {
         errors={errors.password}
         options={{ readOnly: false }}
       />
-      <CommonButton type={'submit'} text={'로그인'}></CommonButton>
+      <CommonButton type={'submit'} text={'Sign In'}></CommonButton>
     </form>
   );
 };

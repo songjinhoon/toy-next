@@ -1,7 +1,6 @@
 import type { Metadata } from 'next';
 import './globals.css';
 import React, { ReactNode } from 'react';
-import { headers } from 'next/headers';
 
 export const metadata: Metadata = {
   title: 'Create Next App',
@@ -9,30 +8,11 @@ export const metadata: Metadata = {
 };
 
 export default function RootLayout({ children }: { children: ReactNode }) {
-  const currentUrl = headers().get('next-url') || '';
-  console.log(currentUrl + ' |||');
-  if (currentUrl === '/' || currentUrl === '') {
-    return (
-      <html>
-        <body>{children}</body>
-      </html>
-    );
-  } else {
-    return (
-      <html>
-        <body>
-          <div>
-            <ul>
-              <li>dma</li>
-              <li>dma</li>
-              <li>dma</li>
-              <li>dma</li>
-              <li>dma</li>
-            </ul>
-          </div>
-          {children}
-        </body>
-      </html>
-    );
-  }
+  return (
+    <html>
+      <body className="text-gray-400 bg-gray-900 body-font relative h-screen">
+        {children}
+      </body>
+    </html>
+  );
 }

@@ -8,8 +8,10 @@ type Props = {
 
 const LinkBox: FC<Props> = ({ href, text }) => {
   return (
-    <div>
-      <Link href={href}>{text}</Link>
+    <div className="w-full">
+      <Link className="float-right" href={href}>
+        {text}
+      </Link>
     </div>
   );
 };

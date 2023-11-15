@@ -7,7 +7,10 @@ type Props = {
 
 const CommonButton: FC<Props> = ({ type, text }) => {
   return (
-    <button className={'bg-sky-500'} type={type}>
+    <button
+      className="flex mx-auto text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg"
+      type={type}
+    >
       {text}
     </button>
   );

@@ -9,7 +9,7 @@ import React, { useCallback } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { ISignUpUser } from '@/app/types/user';
 import useUser from '@/app/hooks/useUser';
-import CommonButton from '@/app/components/atom/commonButton';
+import CommonButton from '@/app/components/atom/button/commonButton';
 
 const SignUpForm = () => {
   const { signUp } = useUser();
