@@ -35,7 +35,7 @@ const useUser = () => {
 
   const findById = async ({ id }: { id: string }) => {
     const response = await fetcher(
-      `/users/${id}` /*{
+      `/api/users/${id}` /*{
         headers: {
           Accept: 'application/json',
           'Content-Type': 'application/json',

@@ -3,15 +3,26 @@
 import '@progress/kendo-theme-default/dist/all.css';
 import {
   Grid,
+  GridCellProps,
   GridColumn,
   GridPageChangeEvent,
 } from '@progress/kendo-react-grid';
 import React, { FC, useState } from 'react';
 import { PagerTargetEvent } from '@progress/kendo-react-data-tools';
+import UpdateButton from '@/app/components/atom/button/updateButton';
+import { useRouter } from 'next/navigation';
+
+interface OptionColumn {
+  key: string;
+  value: string;
+  width?: string;
+}
 
 interface Props {
   datas: any;
-  options?: {};
+  options?: {
+    columns: OptionColumn[];
+  };
 }
 
 interface PageState {
@@ -22,6 +33,7 @@ interface PageState {
 const initialDataState: PageState = { skip: 0, take: 10 };
 
 const KendoGrid: FC<Props> = ({ datas, options }) => {
+  const router = useRouter();
   const [page, setPage] = useState<PageState>(initialDataState);
   const [pageSizeValue, setPageSizeValue] = useState<
     number | string | undefined
@@ -40,6 +52,12 @@ const KendoGrid: FC<Props> = ({ datas, options }) => {
     });
   };
 
+  const getUpdateButton = (e: GridCellProps) => (
+    <UpdateButton
+      _onClick={() => router.push(`/admin/products/${e.dataItem.id}`)}
+    />
+  );
+
   return (
     <div>
       <Grid
@@ -55,11 +73,19 @@ const KendoGrid: FC<Props> = ({ datas, options }) => {
         }}
         onPageChange={pageChange}
       >
-        <GridColumn field="ProductID" title="ID" width="40px" />
-        <GridColumn field="ProductName" title="Name" width="250px" />
-        <GridColumn field="Category.CategoryName" title="CategoryName" />
-        <GridColumn field="UnitPrice" title="Price" />
-        <GridColumn field="UnitsInStock" title="In stock" />
+        {options?.columns.map((data) => (
+          <GridColumn
+            key={data.key}
+            field={data.key}
+            title={data.value}
+            width={data.width}
+          ></GridColumn>
+        ))}
+        <GridColumn
+          key={'update'}
+          title={'update'}
+          cell={(e) => getUpdateButton(e)}
+        ></GridColumn>
       </Grid>
     </div>
   );

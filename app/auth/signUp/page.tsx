@@ -1,4 +1,4 @@
-import PageTileBox from '@/app/components/atom/pageTileBox';
+import PageTileBox from '@/app/components/atom/input/pageTileBox';
 import React from 'react';
 import LinkBox from '@/app/components/molecule/linkBox';
 import SignUpForm from '@/app/components/molecule/signUpForm';

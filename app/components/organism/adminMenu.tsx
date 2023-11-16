@@ -11,7 +11,7 @@ const AdminMenu = () => {
         <li className="mb-5">
           <Link
             className="text-gray-600 hover:text-gray-800 text-2xl"
-            href={'/'}
+            href={'/admin/products'}
           >
             상품관리
           </Link>
@@ -19,7 +19,7 @@ const AdminMenu = () => {
         <li className="mb-5">
           <Link
             className="text-gray-600 hover:text-gray-800 text-2xl"
-            href={'/'}
+            href={'/admin/products'}
           >
             Second Link
           </Link>
@@ -27,7 +27,7 @@ const AdminMenu = () => {
         <li className="mb-5">
           <Link
             className="text-gray-600 hover:text-gray-800 text-2xl"
-            href={'/'}
+            href={'/admin/products'}
           >
             Third Link
           </Link>

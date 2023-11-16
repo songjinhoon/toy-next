@@ -1,7 +1,7 @@
 'use client';
 
-import UsernameInput from '@/app/components/atom/usernameInput';
-import PasswordInput from '@/app/components/atom/passwordInput';
+import UsernameInput from '@/app/components/atom/input/usernameInput';
+import PasswordInput from '@/app/components/atom/input/passwordInput';
 import CommonButton from '@/app/components/atom/button/commonButton';
 import React, { useCallback } from 'react';
 import useUser from '@/app/hooks/useUser';

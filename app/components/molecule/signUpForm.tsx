@@ -1,10 +1,10 @@
 'use client';
 
-import UsernameInput from '@/app/components/atom/usernameInput';
-import PasswordInput from '@/app/components/atom/passwordInput';
-import NicknameInput from '@/app/components/atom/nicknameInput';
-import TellNumInput from '@/app/components/atom/tellNumInput';
-import AddressInput from '@/app/components/atom/addressInput';
+import UsernameInput from '@/app/components/atom/input/usernameInput';
+import PasswordInput from '@/app/components/atom/input/passwordInput';
+import NicknameInput from '@/app/components/atom/input/nicknameInput';
+import TellNumInput from '@/app/components/atom/input/tellNumInput';
+import AddressInput from '@/app/components/atom/input/addressInput';
 import React, { useCallback } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { ISignUpUser } from '@/app/types/user';

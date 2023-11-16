@@ -1,21 +1,21 @@
-export type ApiContext = {
-  apiRootUrl: string;
+export type Category = {
+  id: number;
+  CategoryName: string;
+  Description: string;
 };
-
-export type Category = 'shoes' | 'clothes' | 'book';
-
-export type Condition = 'new' | 'used';
 
 export type Product = {
   id: number;
-  category: Category;
-  title: string;
-  description: string;
-  imageUrl: string;
-  blueDataUrl: string;
-  price: number;
-  condition: Condition;
-  owner: User;
+  ProductName: string;
+  SupplierID: number;
+  CategoryID: number;
+  QuantityPerUnit: string;
+  UnitPrice: number;
+  UnitsInStock: number;
+  UnitsOnOrder: number;
+  ReorderLevel: number;
+  Discontinued: false;
+  Category: Category;
 };
 
 export type User = {

@@ -29,7 +29,7 @@ const CommonHeader = () => {
           <Link href={'/test'} className="mr-5 hover:text-white">
             Test
           </Link>
-          <Link href={'/admin/product'} className="mr-5 hover:text-white">
+          <Link href={'/admin/products'} className="mr-5 hover:text-white">
             Admin
           </Link>
         </nav>
