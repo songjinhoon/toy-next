@@ -30,11 +30,21 @@
   ],
   "products": [
     {
-      "ProductName": "ChaiUPDATE!!!!",
-      "SupplierID": 1,
-      "CategoryID": 1,
-      "QuantityPerUnit": "10 boxes x 20 bags",
-      "id": 1
+      "id": 1,
+      "ProductName": "ChaiUPDATE3434345",
+      "SupplierID": "1",
+      "CategoryID": "1",
+      "QuantityPerUnit": "10 boxes x 50 bags",
+      "UnitPrice": 19,
+      "UnitsInStock": 17,
+      "UnitsOnOrder": 40,
+      "ReorderLevel": 25,
+      "Discontinued": false,
+      "Category": {
+        "CategoryID": 1,
+        "CategoryName": "Beverages",
+        "Description": "Soft drinks, coffees, teas, beers, and ales"
+      }
     },
     {
       "id": 2,

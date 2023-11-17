@@ -17,9 +17,12 @@ const ProductForm: FC<Props> = ({ data }) => {
     register,
     handleSubmit,
     formState: { errors },
-    setValue,
+    watch,
   } = useForm<Product>({
     mode: 'onBlur',
+    defaultValues: {
+      ...data,
+    },
   });
 
   const _onSubmit: SubmitHandler<Product> = useCallback(async (data) => {
@@ -28,12 +31,11 @@ const ProductForm: FC<Props> = ({ data }) => {
   }, []);
 
   useEffect(() => {
-    setValue('id', data.id);
-    setValue('ProductName', data.ProductName);
-    setValue('SupplierID', data.SupplierID);
-    setValue('CategoryID', data.CategoryID);
-    setValue('QuantityPerUnit', data.QuantityPerUnit);
-  }, []);
+    const subscription = watch((value, { name, type }) =>
+      console.log(value, name, type),
+    );
+    return () => subscription.unsubscribe();
+  }, [watch]);
 
   return (
     <form onSubmit={handleSubmit(_onSubmit)}>
