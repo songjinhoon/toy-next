@@ -6,11 +6,18 @@ import {
   GridCellProps,
   GridColumn,
   GridPageChangeEvent,
+  GridSortChangeEvent,
 } from '@progress/kendo-react-grid';
-import React, { FC, useState } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import { PagerTargetEvent } from '@progress/kendo-react-data-tools';
 import UpdateButton from '@/app/components/atom/button/updateButton';
 import { useRouter } from 'next/navigation';
+import {
+  DataResult,
+  orderBy,
+  SortDescriptor,
+  State,
+} from '@progress/kendo-data-query';
 
 interface OptionColumn {
   key: string;
@@ -30,14 +37,27 @@ interface PageState {
   take: number;
 }
 
-const initialDataState: PageState = { skip: 0, take: 10 };
+const initialOption: PageState = { skip: 0, take: 10 };
+
+const initialSort: Array<SortDescriptor> = [
+  { field: 'ProductName', dir: 'asc' },
+];
 
 const KendoGrid: FC<Props> = ({ datas, options }) => {
+  const [result, setResult] = useState<DataResult>(null);
+  const [dataState, setDataState] = useState<State>(null);
+  const dataStateChange = (event: GridDataStateChangeEvent) => {
+    let updatedState = createDataState(event.dataState);
+    setResult(updatedState.result);
+    setDataState(updatedState.dataState);
+  };
+
   const router = useRouter();
   const [page, setPage] = useState<PageState>(initialDataState);
   const [pageSizeValue, setPageSizeValue] = useState<
     number | string | undefined
   >();
+  const [sort, setSort] = useState(initialSort);
 
   const pageChange = (event: GridPageChangeEvent) => {
     const targetEvent = event.targetEvent as PagerTargetEvent;
@@ -58,13 +78,27 @@ const KendoGrid: FC<Props> = ({ datas, options }) => {
     />
   );
 
+  useEffect(() => {
+    const initialState = createDataState(initialOption);
+    setResult(initialState.result);
+    setDataState(initialState.dataState);
+  }, []);
+
   return (
     <div>
       <Grid
+        data={result}
+        {...dataState}
+        onDataStateChange={dataStateChange}
         style={{ height: '100%' }}
-        data={datas.slice(page.skip, page.take + page.skip)}
-        skip={page.skip}
-        take={page.take}
+        // data={orderBy(datas.slice(page.skip, page.take + page.skip), sort)}
+        sortable={true}
+        sort={sort}
+        onSortChange={(e: GridSortChangeEvent) => {
+          setSort(e.sort);
+        }}
+        /*skip={page.skip}
+        take={page.take}*/
         total={datas.length}
         pageable={{
           buttonCount: 4,
@@ -92,3 +126,10 @@ const KendoGrid: FC<Props> = ({ datas, options }) => {
 };
 
 export default KendoGrid;
+
+function createDataState(dataState: State) {
+  return {
+    result: process(datas.slice(0), dataState),
+    dataState: dataState,
+  };
+}
