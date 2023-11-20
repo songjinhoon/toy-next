@@ -5,6 +5,7 @@ import {
   Grid,
   GridCellProps,
   GridColumn,
+  GridDataStateChangeEvent,
   GridPageChangeEvent,
   GridSortChangeEvent,
 } from '@progress/kendo-react-grid';
@@ -15,6 +16,7 @@ import { useRouter } from 'next/navigation';
 import {
   DataResult,
   orderBy,
+  process,
   SortDescriptor,
   State,
 } from '@progress/kendo-data-query';
@@ -44,32 +46,21 @@ const initialSort: Array<SortDescriptor> = [
 ];
 
 const KendoGrid: FC<Props> = ({ datas, options }) => {
-  const [result, setResult] = useState<DataResult>(null);
-  const [dataState, setDataState] = useState<State>(null);
+  const router = useRouter();
+  const [result, setResult] = useState<DataResult>();
+  const [dataState, setDataState] = useState<State>();
+
   const dataStateChange = (event: GridDataStateChangeEvent) => {
     let updatedState = createDataState(event.dataState);
     setResult(updatedState.result);
     setDataState(updatedState.dataState);
   };
 
-  const router = useRouter();
-  const [page, setPage] = useState<PageState>(initialDataState);
-  const [pageSizeValue, setPageSizeValue] = useState<
-    number | string | undefined
-  >();
-  const [sort, setSort] = useState(initialSort);
-
-  const pageChange = (event: GridPageChangeEvent) => {
-    const targetEvent = event.targetEvent as PagerTargetEvent;
-    const take = targetEvent.value === 'All' ? datas.length : event.page.take;
-
-    if (targetEvent.value) {
-      setPageSizeValue(targetEvent.value);
-    }
-    setPage({
-      ...event.page,
-      take,
-    });
+  const createDataState = (dataState: State) => {
+    return {
+      result: process(datas.slice(0), dataState),
+      dataState: dataState,
+    };
   };
 
   const getUpdateButton = (e: GridCellProps) => (
@@ -78,58 +69,81 @@ const KendoGrid: FC<Props> = ({ datas, options }) => {
     />
   );
 
+  // const [page, setPage] = useState<PageState>();
+  const [pageSizeValue, setPageSizeValue] = useState<
+    number | string | undefined
+  >();
+  const [sort, setSort] = useState(initialSort);
+
+  const pageChange = (event: GridPageChangeEvent) => {
+    const targetEvent = event.targetEvent as PagerTargetEvent;
+    const take = targetEvent.value === 'All' ? datas.length : event.page.take;
+    if (targetEvent.value) {
+      setPageSizeValue(targetEvent.value);
+    }
+    const initialState = createDataState({
+      ...event.page,
+      take,
+    });
+    console.log(initialState);
+    setResult(initialState.result);
+    setDataState(initialState.dataState);
+  };
+
   useEffect(() => {
     const initialState = createDataState(initialOption);
+    console.log(initialState);
     setResult(initialState.result);
     setDataState(initialState.dataState);
   }, []);
 
   return (
     <div>
-      <Grid
-        data={result}
-        {...dataState}
-        onDataStateChange={dataStateChange}
-        style={{ height: '100%' }}
-        // data={orderBy(datas.slice(page.skip, page.take + page.skip), sort)}
-        sortable={true}
-        sort={sort}
-        onSortChange={(e: GridSortChangeEvent) => {
-          setSort(e.sort);
-        }}
-        /*skip={page.skip}
-        take={page.take}*/
-        total={datas.length}
-        pageable={{
-          buttonCount: 4,
-          pageSizes: [5, 10, 15, 'All'],
-          pageSizeValue: pageSizeValue,
-        }}
-        onPageChange={pageChange}
-      >
-        {options?.columns.map((data) => (
+      {result && (
+        <Grid
+          data={result}
+          {...dataState}
+          onDataStateChange={dataStateChange}
+          style={{ height: '100%' }}
+          sortable={true}
+          sort={sort}
+          onSortChange={(e: GridSortChangeEvent) => {
+            setResult(
+              orderBy(
+                datas.slice(
+                  dataState?.skip,
+                  dataState?.take! + dataState?.skip!,
+                ),
+                sort,
+              ) as any,
+            );
+            setSort(e.sort);
+          }}
+          total={datas.length}
+          pageable={{
+            buttonCount: 4,
+            pageSizes: [5, 10, 15, 'All'],
+            pageSizeValue: pageSizeValue,
+          }}
+          onPageChange={pageChange}
+        >
+          {options?.columns.map((data) => (
+            <GridColumn
+              key={data.key}
+              field={data.key}
+              title={data.value}
+              width={data.width}
+            ></GridColumn>
+          ))}
           <GridColumn
-            key={data.key}
-            field={data.key}
-            title={data.value}
-            width={data.width}
+            key={'update'}
+            title={'update'}
+            cell={(e) => getUpdateButton(e)}
           ></GridColumn>
-        ))}
-        <GridColumn
-          key={'update'}
-          title={'update'}
-          cell={(e) => getUpdateButton(e)}
-        ></GridColumn>
-      </Grid>
+        </Grid>
+      )}
     </div>
   );
 };
 
 export default KendoGrid;
-
-function createDataState(dataState: State) {
-  return {
-    result: process(datas.slice(0), dataState),
-    dataState: dataState,
-  };
-}
