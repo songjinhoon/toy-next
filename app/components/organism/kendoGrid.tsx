@@ -20,6 +20,7 @@ import {
   SortDescriptor,
   State,
 } from '@progress/kendo-data-query';
+import { ColumnMenuCheckboxFilter } from '@/app/components/organism/columnMenu';
 
 interface OptionColumn {
   key: string;
@@ -39,7 +40,7 @@ interface PageState {
   take: number;
 }
 
-const initialOption: PageState = { skip: 0, take: 10 };
+const initialOption: PageState = { skip: 0, take: 15 };
 
 const initialSort: Array<SortDescriptor> = [
   { field: 'ProductName', dir: 'asc' },
@@ -49,33 +50,31 @@ const KendoGrid: FC<Props> = ({ datas, options }) => {
   const router = useRouter();
   const [result, setResult] = useState<DataResult>();
   const [dataState, setDataState] = useState<State>();
+  const [sort, setSort] = useState(initialSort);
+  const [page, setPage] = useState<any>();
+  const [pageSizeValue, setPageSizeValue] = useState<
+    number | string | undefined
+  >();
 
-  const dataStateChange = (event: GridDataStateChangeEvent) => {
-    let updatedState = createDataState(event.dataState);
-    setResult(updatedState.result);
-    setDataState(updatedState.dataState);
-  };
-
-  const createDataState = (dataState: State) => {
+  const createDataState = (dataState: State): any => {
     return {
       result: process(datas.slice(0), dataState),
       dataState: dataState,
     };
   };
 
-  const getUpdateButton = (e: GridCellProps) => (
-    <UpdateButton
-      _onClick={() => router.push(`/admin/products/${e.dataItem.id}`)}
-    />
-  );
-
-  // const [page, setPage] = useState<PageState>();
-  const [pageSizeValue, setPageSizeValue] = useState<
-    number | string | undefined
-  >();
-  const [sort, setSort] = useState(initialSort);
+  const updateDataState = (event: GridDataStateChangeEvent) => {
+    console.log('DATA');
+    const data = createDataState({
+      ...page,
+      ...event.dataState,
+    });
+    setResult(data.result);
+    setDataState(data.dataState);
+  };
 
   const pageChange = (event: GridPageChangeEvent) => {
+    console.log('PAGE');
     const targetEvent = event.targetEvent as PagerTargetEvent;
     const take = targetEvent.value === 'All' ? datas.length : event.page.take;
     if (targetEvent.value) {
@@ -85,47 +84,61 @@ const KendoGrid: FC<Props> = ({ datas, options }) => {
       ...event.page,
       take,
     });
-    console.log(initialState);
+    setPage(event.page);
     setResult(initialState.result);
     setDataState(initialState.dataState);
   };
 
+  const updateSort = (e: GridSortChangeEvent) => {
+    console.log('SORT');
+    const data = createDataState({
+      skip: e.target.props.skip,
+      take: e.target.props.take,
+    });
+    setResult(
+      orderBy(
+        datas.slice(
+          data.dataState.skip,
+          data.dataState.take + data.dataState.skip,
+        ),
+        sort,
+      ) as any,
+    );
+    setDataState(data.dataState);
+    console.log(e);
+    setSort(e.sort);
+  };
+
+  const getUpdateButton = (e: GridCellProps) => (
+    <UpdateButton
+      _onClick={() => router.push(`/admin/products/${e.dataItem.id}`)}
+    />
+  );
+
   useEffect(() => {
     const initialState = createDataState(initialOption);
-    console.log(initialState);
-    setResult(initialState.result);
     setDataState(initialState.dataState);
+    setResult(initialState.result);
   }, []);
 
   return (
     <div>
       {result && (
         <Grid
-          data={result}
-          {...dataState}
-          onDataStateChange={dataStateChange}
           style={{ height: '100%' }}
-          sortable={true}
+          {...dataState}
+          data={result}
           sort={sort}
-          onSortChange={(e: GridSortChangeEvent) => {
-            setResult(
-              orderBy(
-                datas.slice(
-                  dataState?.skip,
-                  dataState?.take! + dataState?.skip!,
-                ),
-                sort,
-              ) as any,
-            );
-            setSort(e.sort);
+          sortable={true}
+          pageable={{
+            buttonCount: 5,
+            pageSizes: [5, 10, 15, 'All'],
+            pageSizeValue,
           }}
           total={datas.length}
-          pageable={{
-            buttonCount: 4,
-            pageSizes: [5, 10, 15, 'All'],
-            pageSizeValue: pageSizeValue,
-          }}
+          onDataStateChange={updateDataState}
           onPageChange={pageChange}
+          onSortChange={updateSort}
         >
           {options?.columns.map((data) => (
             <GridColumn
@@ -133,6 +146,13 @@ const KendoGrid: FC<Props> = ({ datas, options }) => {
               field={data.key}
               title={data.value}
               width={data.width}
+              filter={'boolean'}
+              columnMenu={(test) =>
+                ColumnMenuCheckboxFilter({
+                  ...test,
+                  data: datas,
+                })
+              }
             ></GridColumn>
           ))}
           <GridColumn
