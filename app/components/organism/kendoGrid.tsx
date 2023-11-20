@@ -9,18 +9,13 @@ import {
   GridPageChangeEvent,
   GridSortChangeEvent,
 } from '@progress/kendo-react-grid';
-import React, { FC, useEffect, useState } from 'react';
-import { PagerTargetEvent } from '@progress/kendo-react-data-tools';
+import React, { FC, useCallback, useEffect, useState } from 'react';
 import UpdateButton from '@/app/components/atom/button/updateButton';
 import { useRouter } from 'next/navigation';
-import {
-  DataResult,
-  orderBy,
-  process,
-  SortDescriptor,
-  State,
-} from '@progress/kendo-data-query';
+import { DataResult, process, State } from '@progress/kendo-data-query';
 import { ColumnMenuCheckboxFilter } from '@/app/components/organism/columnMenu';
+import { PagerTargetEvent } from '@progress/kendo-react-data-tools';
+import { Product } from '@/app/types/db';
 
 interface OptionColumn {
   key: string;
@@ -29,96 +24,95 @@ interface OptionColumn {
 }
 
 interface Props {
-  datas: any;
+  datas: Product[];
   options?: {
     columns: OptionColumn[];
   };
 }
 
-interface PageState {
-  skip: number;
-  take: number;
-}
+interface DataState extends State {}
 
-const initialOption: PageState = { skip: 0, take: 15 };
-
-const initialSort: Array<SortDescriptor> = [
-  { field: 'ProductName', dir: 'asc' },
-];
+const initialOption: DataState = {
+  skip: 0,
+  take: 15,
+  sort: [],
+  group: [],
+};
 
 const KendoGrid: FC<Props> = ({ datas, options }) => {
   const router = useRouter();
   const [result, setResult] = useState<DataResult>();
-  const [dataState, setDataState] = useState<State>();
-  const [sort, setSort] = useState(initialSort);
-  const [page, setPage] = useState<any>();
+  const [dataState, setDataState] = useState<DataState>(initialOption);
   const [pageSizeValue, setPageSizeValue] = useState<
     number | string | undefined
   >();
 
-  const createDataState = (dataState: State): any => {
-    return {
-      result: process(datas.slice(0), dataState),
-      dataState: dataState,
-    };
-  };
+  const getGridOption = useCallback(
+    (setting: DataState) => {
+      return {
+        result: process(datas.slice(0), setting),
+        dataState: setting,
+      };
+    },
+    [datas],
+  );
 
-  const updateDataState = (event: GridDataStateChangeEvent) => {
-    console.log('DATA');
-    const data = createDataState({
-      ...page,
-      ...event.dataState,
-    });
-    setResult(data.result);
-    setDataState(data.dataState);
-  };
+  const updateFilter = useCallback(
+    (event: GridDataStateChangeEvent) => {
+      const gridOption = getGridOption({
+        ...dataState,
+        filter: event.dataState.filter,
+      });
+      setResult(gridOption.result);
+      setDataState(gridOption.dataState);
+    },
+    [getGridOption],
+  );
 
-  const pageChange = (event: GridPageChangeEvent) => {
-    console.log('PAGE');
-    const targetEvent = event.targetEvent as PagerTargetEvent;
-    const take = targetEvent.value === 'All' ? datas.length : event.page.take;
-    if (targetEvent.value) {
-      setPageSizeValue(targetEvent.value);
-    }
-    const initialState = createDataState({
-      ...event.page,
-      take,
-    });
-    setPage(event.page);
-    setResult(initialState.result);
-    setDataState(initialState.dataState);
-  };
+  const updatePage = useCallback(
+    (event: GridPageChangeEvent) => {
+      const targetEvent = event.targetEvent as PagerTargetEvent;
+      const take = targetEvent.value === 'All' ? datas.length : event.page.take;
+      if (targetEvent.value) {
+        setPageSizeValue(targetEvent.value);
+      }
 
-  const updateSort = (e: GridSortChangeEvent) => {
-    console.log('SORT');
-    const data = createDataState({
-      skip: e.target.props.skip,
-      take: e.target.props.take,
-    });
-    setResult(
-      orderBy(
-        datas.slice(
-          data.dataState.skip,
-          data.dataState.take + data.dataState.skip,
-        ),
-        sort,
-      ) as any,
-    );
-    setDataState(data.dataState);
-    console.log(e);
-    setSort(e.sort);
-  };
+      const gridOption = getGridOption({
+        ...dataState,
+        ...event.page,
+        take,
+      });
+      setResult(gridOption.result);
+      setDataState(gridOption.dataState);
+    },
+    [getGridOption, datas],
+  );
 
-  const getUpdateButton = (e: GridCellProps) => (
-    <UpdateButton
-      _onClick={() => router.push(`/admin/products/${e.dataItem.id}`)}
-    />
+  const updateSort = useCallback(
+    (e: GridSortChangeEvent) => {
+      const gridOption = getGridOption({
+        ...dataState,
+        sort: e.sort,
+      });
+      setResult(gridOption.result);
+      setDataState(gridOption.dataState);
+    },
+    [getGridOption],
+  );
+
+  const getUpdateButton = useCallback(
+    (e: GridCellProps) => (
+      <UpdateButton
+        _onClick={() => router.push(`/admin/products/${e.dataItem.id}`)}
+      />
+    ),
+    [],
   );
 
   useEffect(() => {
-    const initialState = createDataState(initialOption);
-    setDataState(initialState.dataState);
-    setResult(initialState.result);
+    const gridOption = getGridOption(initialOption);
+    setResult(gridOption.result);
+    setDataState(gridOption.dataState);
   }, []);
 
   return (
@@ -128,7 +122,6 @@ const KendoGrid: FC<Props> = ({ datas, options }) => {
           style={{ height: '100%' }}
           {...dataState}
           data={result}
-          sort={sort}
           sortable={true}
           pageable={{
             buttonCount: 5,
@@ -136,8 +129,8 @@ const KendoGrid: FC<Props> = ({ datas, options }) => {
             pageSizeValue,
           }}
           total={datas.length}
-          onDataStateChange={updateDataState}
-          onPageChange={pageChange}
+          onDataStateChange={updateFilter}
+          onPageChange={updatePage}
           onSortChange={updateSort}
         >
           {options?.columns.map((data) => (

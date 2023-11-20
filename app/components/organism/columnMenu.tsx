@@ -6,9 +6,10 @@ import {
   GridColumnMenuFilter,
   GridColumnMenuProps,
 } from '@progress/kendo-react-grid';
+import { Product } from '@/app/types/db';
 
 interface Props extends GridColumnMenuProps {
-  data: any[];
+  data: Product[];
 }
 
 export const ColumnMenu = (props: GridColumnMenuProps) => {
