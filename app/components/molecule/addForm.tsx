@@ -27,6 +27,7 @@ const AddForm = () => {
       <CommonInput label={'tellNum'} />
       <CommonInput label={'address'} />
       <CommonButton type={'submit'} text={'create'}></CommonButton>
+
     </form>
   );
 };

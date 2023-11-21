@@ -3,8 +3,12 @@ export const fetcher = async (resource: RequestInfo, init?: RequestInit) => {
 
   if (!response.ok) {
     const errorResponse = await response.json();
-    throw new Error(errorResponse.message ?? 'api request error...');
+    console.log(errorResponse.message ?? 'api request error...');
+    return {
+      message: errorResponse.message ?? 'api request error...',
+    };
+    // throw new Error(errorResponse.message ?? 'api request error...');
+  } else {
+    return response.json();
   }
-
-  return response.json();
 };

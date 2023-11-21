@@ -1,5 +1,8 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  experimental: {
+    serverActions: true,
+  },
   reactStrictMode: false,
   async rewrites() {
     return [
@@ -15,5 +18,5 @@ const nextConfig = {
 module.exports = nextConfig;
 
 /*
-* 1. SSR은 프록시가 안먹나?
-* */
+ * 1. SSR은 프록시가 안먹나?
+ * */

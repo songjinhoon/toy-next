@@ -1,12 +1,13 @@
-import AddForm from '@/app/components/molecule/addForm';
 import { findAllUser } from '@/app/utils/actions/user';
+import CreateForm from '@/app/components/molecule/createForm';
 
 const Page = async () => {
   const users = await findAllUser();
   return (
     <div>
       <h1>Server Action Test</h1>
-      <AddForm></AddForm>
+      {/*<AddForm></AddForm>*/}
+      <CreateForm></CreateForm>
       {users.map((user: any) => (
         <div key={user.id} style={{ display: 'flex' }}>
           <p>{user.id}-----</p>
