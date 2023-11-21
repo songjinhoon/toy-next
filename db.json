@@ -6,7 +6,7 @@
       "password": "1q2w3e4r!@",
       "nickname": "jinhoon",
       "email": "hijinhoon@naver.com",
-      "tell_num": "01000000000",
+      "tellNum": "01000000000",
       "address": "ahnlab"
     },
     {
@@ -15,7 +15,7 @@
       "password": "1q2w3e4r!@",
       "nickname": "jinhoon1",
       "email": "hijinhoon@naver.com",
-      "tell_num": "01000000000",
+      "tellNum": "01000000000",
       "address": "ahnlab"
     },
     {
@@ -24,8 +24,53 @@
       "password": "1q2w3e4r!@",
       "nickname": "jinhoon2",
       "email": "hijinhoon@naver.com",
-      "tell_num": "01000000000",
+      "tellNum": "01000000000",
       "address": "ahnlab"
+    },
+    {
+      "username": "1",
+      "password": "2",
+      "nickname": "3",
+      "email": "4",
+      "tellNum": "5",
+      "address": "6",
+      "id": 4
+    },
+    {
+      "username": "1",
+      "password": "2",
+      "nickname": "3",
+      "email": "4",
+      "tellNum": "5",
+      "address": "6",
+      "id": 5
+    },
+    {
+      "username": "1",
+      "password": "2",
+      "nickname": "3",
+      "email": "4",
+      "tellNum": "5",
+      "address": "6",
+      "id": 6
+    },
+    {
+      "username": "1",
+      "password": "2",
+      "nickname": "3",
+      "email": "4",
+      "tellNum": "5",
+      "address": "7",
+      "id": 7
+    },
+    {
+      "username": "1",
+      "password": "2",
+      "nickname": "3",
+      "email": "4",
+      "tellNum": "5",
+      "address": "6",
+      "id": 8
     }
   ],
   "products": [

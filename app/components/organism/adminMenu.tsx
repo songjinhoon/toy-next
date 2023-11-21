@@ -13,15 +13,15 @@ const AdminMenu = () => {
             className="text-gray-600 hover:text-gray-800 text-2xl"
             href={'/admin/products'}
           >
-            상품관리
+            products
           </Link>
         </li>
         <li className="mb-5">
           <Link
             className="text-gray-600 hover:text-gray-800 text-2xl"
-            href={'/admin/products'}
+            href={'/admin/users'}
           >
-            Second Link
+            users
           </Link>
         </li>
         <li className="mb-5">

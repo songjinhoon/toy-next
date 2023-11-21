@@ -27,14 +27,14 @@
     "@progress/kendo-react-treeview": "^6.0.2",
     "@progress/kendo-svg-icons": "^2.0.0",
     "@progress/kendo-theme-default": "^7.0.1",
-    "next": "14.0.0",
-    "react": "^18",
-    "react-dom": "^18"
+    "next": "latest",
+    "react": "18.2.0",
+    "react-dom": "18.2.0"
   },
   "devDependencies": {
-    "@types/node": "^20",
-    "@types/react": "^18",
-    "@types/react-dom": "^18",
+    "@types/node": "20.5.1",
+    "@types/react": "18.2.20",
+    "@types/react-dom": "18.2.7",
     "autoprefixer": "^10",
     "axios": "^1.6.0",
     "eslint": "^8",
