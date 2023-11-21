@@ -8,7 +8,7 @@ const ArrowButton = () => {
   const _onClick = useCallback(() => {
     localStorage.removeItem('id');
     router.push('/auth/signIn');
-  }, []);
+  }, [router]);
 
   return (
     <button

@@ -25,10 +25,13 @@ const ProductForm: FC<Props> = ({ data }) => {
     },
   });
 
-  const _onSubmit: SubmitHandler<Product> = useCallback(async (data) => {
-    await update(data);
-    alert('complete');
-  }, []);
+  const _onSubmit: SubmitHandler<Product> = useCallback(
+    async (data) => {
+      await update(data);
+      alert('complete');
+    },
+    [update],
+  );
 
   useEffect(() => {
     const subscription = watch((value, { name, type }) =>

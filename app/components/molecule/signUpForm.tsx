@@ -21,9 +21,12 @@ const SignUpForm = () => {
     mode: 'onBlur',
   });
 
-  const _onSubmit: SubmitHandler<ISignUpUser> = useCallback(async (data) => {
-    await signUp(data);
-  }, []);
+  const _onSubmit: SubmitHandler<ISignUpUser> = useCallback(
+    async (data) => {
+      await signUp(data);
+    },
+    [signUp],
+  );
 
   return (
     <form onSubmit={handleSubmit(_onSubmit)} className={'bg-slate-100'}>

@@ -66,7 +66,7 @@ const KendoGrid: FC<Props> = ({ datas, options }) => {
       setResult(gridOption.result);
       setDataState(gridOption.dataState);
     },
-    [getGridOption],
+    [getGridOption, dataState],
   );
 
   const updatePage = useCallback(
@@ -85,7 +85,7 @@ const KendoGrid: FC<Props> = ({ datas, options }) => {
       setResult(gridOption.result);
       setDataState(gridOption.dataState);
     },
-    [getGridOption, datas],
+    [getGridOption, datas, dataState],
   );
 
   const updateSort = useCallback(
@@ -97,7 +97,7 @@ const KendoGrid: FC<Props> = ({ datas, options }) => {
       setResult(gridOption.result);
       setDataState(gridOption.dataState);
     },
-    [getGridOption],
+    [getGridOption, dataState],
   );
 
   const getUpdateButton = useCallback(
@@ -106,14 +106,14 @@ const KendoGrid: FC<Props> = ({ datas, options }) => {
         _onClick={() => router.push(`/admin/products/${e.dataItem.id}`)}
       />
     ),
-    [],
+    [router],
   );
 
   useEffect(() => {
     const gridOption = getGridOption(initialOption);
     setResult(gridOption.result);
     setDataState(gridOption.dataState);
-  }, []);
+  }, [getGridOption]);
 
   return (
     <div>

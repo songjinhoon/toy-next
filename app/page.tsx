@@ -8,7 +8,7 @@ const Home = () => {
 
   useEffect(() => {
     router.push('/auth/signIn');
-  }, []);
+  }, [router]);
 
   return <div>HomePage</div>;
 };

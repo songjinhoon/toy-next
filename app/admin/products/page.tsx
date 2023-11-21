@@ -2,6 +2,7 @@ import useProduct from '@/app/hooks/useProduct';
 import dynamic from 'next/dynamic';
 import React from 'react';
 
+
 const Page = async () => {
   const { findAll } = useProduct();
   const products = await findAll();

@@ -18,7 +18,7 @@ const UserInfo = () => {
     if (!checker()) {
       router.push('/auth/signIn');
     }
-  }, []);
+  }, [router]);
 
   return <></>;
 };

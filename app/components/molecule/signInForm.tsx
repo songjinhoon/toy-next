@@ -20,10 +20,13 @@ const SignInForm = () => {
     mode: 'onBlur',
   });
 
-  const _onSubmit: SubmitHandler<ISignUpUser> = useCallback(async (data) => {
-    await signIn(data);
-    router.push('/dashboard');
-  }, []);
+  const _onSubmit: SubmitHandler<ISignUpUser> = useCallback(
+    async (data) => {
+      await signIn(data);
+      router.push('/dashboard');
+    },
+    [signIn, router],
+  );
 
   return (
     <form onSubmit={handleSubmit(_onSubmit)}>
