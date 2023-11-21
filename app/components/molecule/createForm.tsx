@@ -1,27 +1,22 @@
 'use client';
 
 import { useFormState } from 'react-dom';
-import { createUser } from '@/app/utils/actions/user';
+import { createUserError } from '@/app/utils/actions/user';
 import SubmitButton from '@/app/components/atom/button/submitButton';
-import { useEffect } from 'react';
+import CommonInput from '@/app/components/atom/input/commonInput';
 
 const initialState = {
   message: null,
 };
 
 const CreateForm = () => {
-  const [state, formAction] = useFormState(createUser, initialState);
-
-  useEffect(() => {
-    console.log(state);
-  }, [state]);
+  const [state, formAction] = useFormState(createUserError, initialState);
 
   return (
-    <form action={formAction}>
-      <label htmlFor="todo">Enter Task</label>
-      <input type="text" id="todo" name="todo" required />
+    <form action={formAction} className="p-10">
+      <CommonInput label={'username'} options={{ required: true }} />
       <SubmitButton />
-      <p aria-live="polite" className="sr-only" role="status">
+      <p aria-live="polite" role="status">
         {state?.message}
       </p>
     </form>

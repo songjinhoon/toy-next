@@ -27,9 +27,9 @@ const AdminMenu = () => {
         <li className="mb-5">
           <Link
             className="text-gray-600 hover:text-gray-800 text-2xl"
-            href={'/admin/products'}
+            href={'/admin/errors'}
           >
-            Third Link
+            error-test
           </Link>
         </li>
       </nav>
