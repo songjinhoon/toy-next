@@ -1,16 +1,17 @@
-import dynamic from 'next/dynamic';
 import CommonTitle from '@/app/components/atom/text/commonTitle';
 import { findAllProducts } from '@/app/utils/actions/product';
+import React from 'react';
+import KendoGrid from '@/app/components/organism/kendoGrid';
+import dynamic from 'next/dynamic';
 
 const Page = async () => {
   const products = await findAllProducts(); // 100건?
 
-  // kendo issue
   const KendoGrid = dynamic(
     () => import('@/app/components/organism/kendoGrid'),
     {
       ssr: false,
-      loading: () => <p>Loading...</p>,
+      loading: () => <p>KENDO LOADING.........</p>,
     },
   );
 

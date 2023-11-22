@@ -1,6 +1,7 @@
-import React, { ReactNode } from 'react';
+import React, { ReactNode, Suspense } from 'react';
 import AdminMenu from '@/app/components/organism/adminMenu';
 import CommonHeader from '@/app/components/organism/commonHeader';
+import Loading from '@/app/admin/loading';
 
 export default function AdminLayout({ children }: { children: ReactNode }) {
   return (
@@ -14,7 +15,9 @@ export default function AdminLayout({ children }: { children: ReactNode }) {
         <div style={{ flex: '1' }}>
           <AdminMenu></AdminMenu>
         </div>
-        <div style={{ flex: '4' }}>{children}</div>
+        <Suspense fallback={<Loading />}>
+          <div style={{ flex: '4' }}>{children}</div>
+        </Suspense>
       </div>
     </section>
   );
