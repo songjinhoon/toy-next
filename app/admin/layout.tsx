@@ -15,9 +15,9 @@ export default function AdminLayout({ children }: { children: ReactNode }) {
         <div style={{ flex: '1' }}>
           <AdminMenu></AdminMenu>
         </div>
-        <Suspense fallback={<Loading />}>
-          <div style={{ flex: '4' }}>{children}</div>
-        </Suspense>
+        <div style={{ flex: '4' }}>
+          <Suspense fallback={<Loading />}>{children}</Suspense>
+        </div>
       </div>
     </section>
   );

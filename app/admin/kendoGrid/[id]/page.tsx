@@ -1,7 +1,7 @@
-import { Product } from '@/app/types/db';
 import ProductForm from '@/app/components/molecule/productForm';
 import useProduct, { productApi } from '@/app/hooks/useProduct';
 import { fetcher } from '@/app/utils';
+import { Product } from '@/app/types/product';
 
 interface Params {
   params: {

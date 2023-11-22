@@ -3,6 +3,7 @@ import { findAllProducts } from '@/app/utils/actions/product';
 import React from 'react';
 import KendoGrid from '@/app/components/organism/kendoGrid';
 import dynamic from 'next/dynamic';
+import CommonLoading from '@/app/components/atom/loading/commonLoading';
 
 const Page = async () => {
   const products = await findAllProducts(); // 100건?
@@ -11,7 +12,7 @@ const Page = async () => {
     () => import('@/app/components/organism/kendoGrid'),
     {
       ssr: false,
-      loading: () => <p>KENDO LOADING.........</p>,
+      loading: () => <CommonLoading />,
     },
   );
 

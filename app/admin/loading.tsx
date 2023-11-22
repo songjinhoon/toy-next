@@ -1,27 +1,7 @@
+import CommonLoading from '@/app/components/atom/loading/commonLoading';
+
 const Loading = () => {
-  return (
-    <>
-      <p>Page Loading...</p>
-      <p>Page Loading...</p>
-      <p>Page Loading...</p>
-      <p>Page Loading...</p>
-      <p>Page Loading...</p>
-      <p>Page Loading...</p>
-      <p>Page Loading...</p>
-      <p>Page Loading...</p>
-      <p>Page Loading...</p>
-      <p>Page Loading...</p>
-      <p>Page Loading...</p>
-      <p>Page Loading...</p>
-      <p>Page Loading...</p>
-      <p>Page Loading...</p>
-      <p>Page Loading...</p>
-      <p>Page Loading...</p>
-      <p>Page Loading...</p>
-      <p>Page Loading...</p>
-      <p>Page Loading...</p>
-    </>
-  );
+  return <CommonLoading></CommonLoading>;
 };
 
 export default Loading;
