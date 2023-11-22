@@ -11,25 +11,25 @@ const AdminMenu = () => {
         <li className="mb-5">
           <Link
             className="text-gray-600 hover:text-gray-800 text-2xl"
-            href={'/admin/products'}
+            href={'/admin/kendoGrid'}
           >
-            products
+            kendoGrid
           </Link>
         </li>
         <li className="mb-5">
           <Link
             className="text-gray-600 hover:text-gray-800 text-2xl"
-            href={'/admin/users'}
+            href={'/admin/serverAction'}
           >
-            users
+            serverAction
           </Link>
         </li>
         <li className="mb-5">
           <Link
             className="text-gray-600 hover:text-gray-800 text-2xl"
-            href={'/admin/errors'}
+            href={'/admin/serverActionError'}
           >
-            error-test
+            serverActionError
           </Link>
         </li>
       </nav>

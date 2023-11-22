@@ -1,12 +1,13 @@
 import { findAllUser } from '@/app/utils/actions/user';
-import AddForm from '@/app/components/molecule/addForm';
+import CreateForm from '@/app/components/molecule/createForm';
+import CommonTitle from '@/app/components/atom/text/commonTitle';
 
 const Page = async () => {
   const users = await findAllUser();
   return (
-    <div>
-      <h1 className="text-3xl text-center mt-5">Server Action Test</h1>
-      <AddForm></AddForm>
+    <>
+      <CommonTitle title={'Server Action Error Handle Test'} />
+      w<CreateForm></CreateForm>
       {users.map((user: any) => (
         <div key={user.id} style={{ display: 'flex' }}>
           <p>{user.id}-----</p>
@@ -17,7 +18,7 @@ const Page = async () => {
           <p>{user.tellNum}-----</p>
         </div>
       ))}
-    </div>
+    </>
   );
 };
 
