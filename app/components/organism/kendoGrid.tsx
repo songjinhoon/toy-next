@@ -15,7 +15,7 @@ import { useRouter } from 'next/navigation';
 import { DataResult, process, State } from '@progress/kendo-data-query';
 import { ColumnMenuCheckboxFilter } from '@/app/components/organism/columnMenu';
 import { PagerTargetEvent } from '@progress/kendo-react-data-tools';
-import { Product } from '@/app/types/db';
+import { Product } from '@/app/types/product';
 
 interface OptionColumn {
   key: string;
