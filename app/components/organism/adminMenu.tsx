@@ -32,6 +32,14 @@ const AdminMenu = () => {
             serverActionError
           </Link>
         </li>
+        <li className="mb-5">
+          <Link
+            className="text-gray-600 hover:text-gray-800 text-2xl"
+            href={'/admin/bigData'}
+          >
+            bigData
+          </Link>
+        </li>
       </nav>
     </div>
   );

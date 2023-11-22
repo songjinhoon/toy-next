@@ -1,6 +1,5 @@
 import CommonTitle from '@/app/components/atom/text/commonTitle';
 import { findAllProducts } from '@/app/utils/actions/product';
-import React from 'react';
 import KendoGrid from '@/app/components/organism/kendoGrid';
 import dynamic from 'next/dynamic';
 import CommonLoading from '@/app/components/atom/loading/commonLoading';
