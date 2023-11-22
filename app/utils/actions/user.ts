@@ -12,7 +12,7 @@ export async function findAllUser() {
 }
 
 export async function createUser(data: any) {
-  await fetcher(userApi + '111', {
+  await fetcher(userApi, {
     method: 'post',
     headers: {
       'Content-Type': 'application/json',

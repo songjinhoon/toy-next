@@ -103,7 +103,7 @@ const KendoGrid: FC<Props> = ({ datas, options }) => {
   const getUpdateButton = useCallback(
     (e: GridCellProps) => (
       <UpdateButton
-        _onClick={() => router.push(`/admin/products/${e.dataItem.id}`)}
+        _onClick={() => router.push(`/admin/kendoGrid/${e.dataItem.id}`)}
       />
     ),
     [router],

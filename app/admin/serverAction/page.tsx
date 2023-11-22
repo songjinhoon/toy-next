@@ -1,5 +1,5 @@
 import { findAllUser } from '@/app/utils/actions/user';
-import AddForm from '@/app/components/molecule/addForm';
+import CreateUserFormServer from '@/app/components/organism/createUserFormServer';
 import CommonTitle from '@/app/components/atom/text/commonTitle';
 
 const Page = async () => {
@@ -7,7 +7,7 @@ const Page = async () => {
   return (
     <>
       <CommonTitle title={'Server Action Test'} />
-      <AddForm></AddForm>
+      <CreateUserFormServer></CreateUserFormServer>
       {users.map((user: any) => (
         <div key={user.id} style={{ display: 'flex' }}>
           <p>{user.id}-----</p>
